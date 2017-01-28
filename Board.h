@@ -25,7 +25,7 @@ public:
 	void initializeGrid() {																													//Function adds a space to each array coordinate to make the board square
 		for (int n = 0; n < 10; n++) {
 			for (int m = 0; m < 10; m++) {
-				board[n][m] = " ";
+				board[n][m] = " "; 
 			}
 		}
 	}
