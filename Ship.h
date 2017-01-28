@@ -21,9 +21,9 @@ public:
 		_team = t;
 		for (int z = 0; z < 4; z++)
 		{
-			if (_team == "") {
-				do {
-					checkLoc = true;										//Sets the g_CheckLoc bool value to true before running the for loop that tests if the ship overlaps another ship. 
+			do {
+				checkLoc = true;
+				if (_team == "") {
 					do {													//Parent loop running until the ship is not overlaping another ship
 						do {												//Loop getting users desired ship coordinates. This runs until the ship would be on the board and then exits to the parent loop
 							cout << "Please Enter " << shipName[shipSize - 1] << " Desired Direction of Travel as N, E, S, W" << endl;
@@ -35,62 +35,45 @@ public:
 							cout << "Please enter x coordinate as 0-9" << endl;
 							getline(cin, test_X);
 							x = atoi(test_X.c_str());											// converts the users input for the variable string X into a integer and stores it in the variable int x
-							if (0 <= x && x <= 9) { break; }									// if this converted value is within the 0 to 9 range the input is valid and the loop is stopped
-						} while (true);
+						} while (x < 0 || x > 9);
 						do {
 							cout << "Please enter y coordinate as 0-9" << endl;
 							getline(cin, test_Y);
 							y = atoi(test_Y.c_str());											//converts the users input for the variable string Y into a integer and stores it in the variable int y
-							if (0 <= y && y <= 9) { break; }									//if this converted value is within the 0 to 9 range the input is valid and the loop is stopped
-						} while (true);
+						} while (y < 0 || y > 9);
 						if (direction == "n" && y > 9 - shipSize || direction == "e" && x < 0 + shipSize || direction == "s" && y < 0 + shipSize || direction == "w" && x > 9 - shipSize) {
 							cout << "The ships direction and location would place it off the board. Please try again.\n";
 						}
 					} while (direction == "n" && y > 9 - shipSize || direction == "e" && x < 0 + shipSize || direction == "s" && y < 0 + shipSize || direction == "w" && x > 9 - shipSize);
-					for (int i = 0; i <= shipSize; i++) {										//this loop is used to take the users inputs and test make sure that the ship will not overlap another ship.
-						if (board[y][x] == "S") { checkLoc = false; }							//If any of the ships coordinates overlap another ship the g_CheckLoc bool is set to false so that the do while will run again
-						if (direction == "n" && board[y + i][x] == "S") { checkLoc = false; }
-						if (direction == "e" && board[y][x - i] == "S") { checkLoc = false; }	//in the event that a ship overlaps another already placed ship the m_CheckLoc bool is updated to false causing the main loop to run again
-						if (direction == "s" && board[y - i][x] == "S") { checkLoc = false; }
-						if (direction == "w" && board[y][x + i] == "S") { checkLoc = false; }
-					}
-				} while (checkLoc == false);
-			}
-			if(_team == "e")	{
-				do {														//The loop runs until the direction, x and y coordinates would not overlap another ship
+				}
+				if (_team == "e") {
 					do {													//This loop runs until the direction, x and y coordinates would not place the ship off the grid.
 						_randDirection = o(r);
 						x = p(r);
 						y = p(r);
 						direction = dir[_randDirection];
 					} while (direction == "n" && y > 9 - shipSize || direction == "e" && x < 0 + shipSize || direction == "s" && y < 0 + shipSize || direction == "w" && x > 9 - shipSize);
-					checkLoc = true;											//Sets the g_CheckLoc bool value to true before running the for loop that tests if the ship overlaps another ship. 
-					for (int i = 0; i <= shipSize; i++) {						//Loop for checking each cell of the ships position as to make sure the ship does not overlap any already placed ships
-						if (board[y][x] == "S") { checkLoc = false; }	//If any of the ships coordinates overlap another ship the g_CheckLoc bool is set to false so that the do while will run again
-						if (direction == "n" && board[y + i][x] == "S") { checkLoc = false; }
-						if (direction == "e" && board[y][x - i] == "S") { checkLoc = false; }
-						if (direction == "s" && board[y - i][x] == "S") { checkLoc = false; }
-						if (direction == "w" && board[y][x + i] == "S") { checkLoc = false; }
-					}
-				} while (checkLoc == false);
-			}
-			if (direction == "n") {
-				for (int s = 0; s <= shipSize; s++) {						//if the direction is north then the following loop is executed a number of time wqual to the size of the ship
+				}
+				if (_team == "t") { x = 0; y = 0; }
+				for (int i = 0; i <= shipSize; i++) {										//this loop is used to take the users inputs and test make sure that the ship will not overlap another ship.
+					if (board[y][x] == "S") { checkLoc = false; }							//If any of the ships coordinates overlap another ship the g_CheckLoc bool is set to false so that the do while will run again
+					if (direction == "n" && board[y + i][x] == "S") { checkLoc = false; }
+					if (direction == "e" && board[y][x - i] == "S") { checkLoc = false; }	//in the event that a ship overlaps another already placed ship the m_CheckLoc bool is updated to false causing the main loop to run again
+					if (direction == "s" && board[y - i][x] == "S") { checkLoc = false; }
+					if (direction == "w" && board[y][x + i] == "S") { checkLoc = false; }
+				}
+			} while (checkLoc == false);
+			for (int s = 0; s <= shipSize; s++) {
+				if (direction == "n") {
 					board[y + s][x] = "S";
 				}
-			}
-			if (direction == "e") {
-				for (int s = 0; s <= shipSize; s++) {						//if the direction is east then the following loop is executed a number of time wqual to the size of the ship
+				if (direction == "e") {
 					board[y][x - s] = "S";
 				}
-			}
-			if (direction == "s") {
-				for (int s = 0; s <= shipSize; s++) {						//if the direction is south then the following loop is executed a number of time wqual to the size of the ship
+				if (direction == "s") {
 					board[y - s][x] = "S";
 				}
-			}
-			if (direction == "w") {
-				for (int s = 0; s <= shipSize; s++) {						//if the direction is west then the following loop is executed a number of time wqual to the size of the ship
+				if (direction == "w") {
 					board[y][x + s] = "S";
 				}
 			} direction = ""; x = -1; y = -1; shipSize++;
@@ -101,7 +84,7 @@ public:
 			xF = p(r); yF = p(r);
 		} while (board[yF][xF] == "X" || board[yF][xF] == "O");
 		if (board[yF][xF] == " ") {								//If the coordantes dont hold a ship ("S") than the enemy missed and the condition statment is executed updating the g_PlayerBoard[][] array
-			std::cout << "The enemy fired at ( " << xF <<  " | " << yF << " ) missing your boats!\n" << std::endl;
+			std::cout << "The enemy fired at ( " << xF << " | " << yF << " ) missing your boats!\n" << std::endl;
 			board[yF][xF] = "O";
 		}
 		if (board[yF][xF] == "S") {								//If the coordantes hold a ship ("S") than the enemy hit and the condition statment is executed updating the g_PlayerBoard[][] array
@@ -111,5 +94,3 @@ public:
 		}
 	}
 };
-
-
