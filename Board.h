@@ -6,8 +6,6 @@
 #include <string.h>
 #include <algorithm>
 
-
-
 bool endGame = false, checkFire = false;
 int xF, yF, fire = 0;
 std::string tellPlayer = "";
@@ -90,6 +88,4 @@ public:
 		} while (0 > yF || yF > 9);
 	}
 };
-
-
 #endif // !BOARD
