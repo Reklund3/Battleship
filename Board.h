@@ -82,14 +82,12 @@ public:
 			std::cout << "Please enter x coordinate as 0-9" << std::endl;
 			getline(std::cin, _fireX);
 			xF = atoi(_fireX.c_str());									//Take the user input and converts it to an integer to store in x updating it from its privious value
-			if (0 <= xF && xF <= 9) { break; }							//If the value stored in x was greater of equal to zero and less than or equal to 9 then the loop requesting user to input the x coordinate breaks
-		} while (true);
+		} while (0 > xF || xF > 9);
 		do {
 			std::cout << "Please enter y coordinate as 0-9" << std::endl;
 			getline(std::cin, _fireY);
 			yF = atoi(_fireY.c_str());									//Take the user input and converts it to an integer to store in x updating it from its privious value
-			if (0 <= yF && yF <= 9) { break; }							//If the value stored in x was greater of equal to zero and less than or equal to 9 then the loop requesting user to input the x coordinate breaks
-		} while (true);
+		} while (0 > yF || yF > 9);
 	}
 };
 
