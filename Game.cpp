@@ -53,7 +53,10 @@ This was developed and compiled on a Windows 7 Service Pack 1
 
 #include "Board.h"
 #include "Ship.h"
-#include "Game.h"
+#include <iostream>
+
+bool checkFire, endGame;
+std::string tellPlayer;
 
 int main()
 {
